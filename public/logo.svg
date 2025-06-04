@@ -1,0 +1,53 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Background gradient -->
+    <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+
+    <!-- Gold star gradient -->
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fcd34d"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+
+    <!-- Inner glow -->
+    <radialGradient id="glowGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="white" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Shadow filter -->
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="black" flood-opacity="0.2"/>
+    </filter>
+
+    <!-- Glow filter for stars -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="1.2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background circle with golden outline -->
+  <circle cx="50" cy="50" r="45" fill="url(#blueGradient)" stroke="url(#goldGradient)" stroke-width="1.5" filter="url(#shadow)"/>
+  <circle cx="50" cy="50" r="30" fill="url(#glowGradient)" />
+
+  <!-- Central large star -->
+  <path d="M50 20 L55 38 L72 38 L58 50 L63 68 L50 58 L37 68 L42 50 L28 38 L45 38 Z"
+        fill="url(#goldGradient)" stroke="white" stroke-width="0.8" filter="url(#glow)" opacity="0.95"/>
+
+  <!-- Smaller surrounding stars -->
+  <path d="M20 28 L22 33 L27 33 L23 36 L25 41 L20 38 L15 41 L17 36 L13 33 L18 33 Z"
+        fill="white" opacity="0.8" filter="url(#glow)"/>
+
+  <path d="M80 28 L82 33 L87 33 L83 36 L85 41 L80 38 L75 41 L77 36 L73 33 L78 33 Z"
+        fill="white" opacity="0.8" filter="url(#glow)"/>
+
+  <path d="M50 78 L52 83 L57 83 L53 86 L55 91 L50 88 L45 91 L47 86 L43 83 L48 83 Z"
+        fill="white" opacity="0.8" filter="url(#glow)"/>
+</svg>
