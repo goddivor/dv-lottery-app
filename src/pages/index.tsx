@@ -1,8 +1,10 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
-import HomePage from "./home";
+// import HomePage from "./home";
 import NotFound from "./not-found";
 import RootLayout from "@/app.layout";
 import { DVLotteryPage } from "./dv-lottery";
+import LoginPage from "./login";
+import LandingPage from "./landing";
 
 const router = createBrowserRouter([
   {
@@ -11,7 +13,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <HomePage />,
+        element: <LandingPage />,
+      },
+      {
+        path: "login",
+        element: <LoginPage />, // ✅ New login route
       },
       {
         path: "dv-lottery",
