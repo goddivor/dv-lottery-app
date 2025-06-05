@@ -156,6 +156,10 @@ export interface FormStep {
   isCompleted: boolean;
   isValid: boolean;
   component: React.ComponentType<FormStepProps>;
+  icon?: React.ReactNode; // Add icon property for modern UI
+  category?: string; // Add category for grouping steps
+  estimatedTime?: number; // Optional: estimated completion time in minutes
+  helpText?: string; // Optional: additional help text
 }
 
 export interface FormStepProps {
@@ -209,4 +213,17 @@ export interface FormWizardState {
   currentStepIndex: number;
   canNavigateToStep: (stepIndex: number) => boolean;
   isStepAccessible: (stepIndex: number) => boolean;
+  completionPercentage: number; // Add overall completion tracking
+  estimatedTimeRemaining: number; // Add time estimation
 }
+
+export const StepCategory = {
+  IDENTITY: "Identity" as const,
+  CONTACT: "Contact" as const,
+  FAMILY: "Family" as const,
+  DOCUMENTS: "Documents" as const,
+  QUALIFICATIONS: "Qualifications" as const,
+  SUBMISSION: "Submission" as const,
+} as const;
+
+export type StepCategoryType = (typeof StepCategory)[keyof typeof StepCategory];
