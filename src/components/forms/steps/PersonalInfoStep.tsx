@@ -10,7 +10,6 @@ import {
   Profile2User, 
   DocumentText1, 
   Calendar, 
-  Global,
   InfoCircle,
   TickCircle,
   Warning2 
@@ -48,10 +47,26 @@ export const PersonalInfoStep: React.FC<FormStepProps> = ({ data }) => {
     return true
   }
 
-  // Calculate completion percentage for this step
-  const requiredFields = ['lastName', 'firstName', 'gender', 'dateOfBirth', 'cityOfBirth', 'countryOfBirth', 'eligibilityCountry']
+  // Calculate age from date of birth
+  const calculateAge = (dateOfBirth: string): number => {
+    if (!dateOfBirth) return 0
+    const today = new Date()
+    const birthDate = new Date(dateOfBirth)
+    let age = today.getFullYear() - birthDate.getFullYear()
+    const monthDiff = today.getMonth() - birthDate.getMonth()
+    
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      age--
+    }
+    return age
+  }
+
+  // Calculate completion percentage for this step (only identity fields)
+  const requiredFields = ['lastName', 'firstName', 'gender', 'dateOfBirth']
   const completedFields = requiredFields.filter(field => personalInfo[field as keyof typeof personalInfo])
   const completionPercentage = Math.round((completedFields.length / requiredFields.length) * 100)
+
+  const age = calculateAge(personalInfo.dateOfBirth || '')
 
   return (
     <div className="space-y-8">
@@ -159,15 +174,15 @@ export const PersonalInfoStep: React.FC<FormStepProps> = ({ data }) => {
           </div>
         </div>
 
-        {/* Birth Information Section */}
+        {/* Birth Date Section */}
         <div className="bg-white border border-gray-200 rounded-xl p-6">
           <div className="flex items-center space-x-3 mb-6">
             <div className="flex items-center justify-center w-10 h-10 bg-green-50 rounded-lg">
               <Calendar size={20} color="#16A34A" variant="Bold" />
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-gray-900">Birth Information</h3>
-              <p className="text-sm text-gray-600">When and where you were born</p>
+              <h3 className="text-lg font-semibold text-gray-900">Date of Birth</h3>
+              <p className="text-sm text-gray-600">When you were born</p>
             </div>
           </div>
 
@@ -180,66 +195,86 @@ export const PersonalInfoStep: React.FC<FormStepProps> = ({ data }) => {
                 onChange={(e) => handleInputChange('dateOfBirth')(e.target.value)}
                 onBlur={(e) => validateField('dateOfBirth', e.target.value, 'Date of birth')}
               />
-              <p className="text-xs text-gray-500 mt-2 flex items-center space-x-1">
-                <InfoCircle size={12} color="#6B7280" variant="Outline" />
-                <span>You must be at least 18 years old</span>
-              </p>
+              <div className="mt-2 space-y-1">
+                <p className="text-xs text-gray-500 flex items-center space-x-1">
+                  <InfoCircle size={12} color="#6B7280" variant="Outline" />
+                  <span>You must be at least 18 years old to apply</span>
+                </p>
+                {personalInfo.dateOfBirth && (
+                  <p className={`text-xs flex items-center space-x-1 ${
+                    age >= 18 ? 'text-green-600' : 'text-red-600'
+                  }`}>
+                    <TickCircle size={12} color={age >= 18 ? "#16A34A" : "#DC2626"} variant="Bold" />
+                    <span>
+                      {age >= 18 
+                        ? `You are ${age} years old (eligible)` 
+                        : `You are ${age} years old (not eligible - must be 18+)`
+                      }
+                    </span>
+                  </p>
+                )}
+              </div>
             </div>
-
-            <div></div> {/* Empty cell for spacing */}
-
-            <Input
-              label="City of Birth *"
-              placeholder="Enter your birth city"
-              value={personalInfo.cityOfBirth || ''}
-              onChange={(e) => handleInputChange('cityOfBirth')(e.target.value)}
-              onBlur={(e) => validateField('cityOfBirth', e.target.value, 'City of birth')}
-            />
-
-            <Input
-              label="Country of Birth *"
-              placeholder="Enter your birth country"
-              value={personalInfo.countryOfBirth || ''}
-              onChange={(e) => handleInputChange('countryOfBirth')(e.target.value)}
-              onBlur={(e) => validateField('countryOfBirth', e.target.value, 'Country of birth')}
-            />
           </div>
         </div>
 
-        {/* Eligibility Section */}
-        <div className="bg-white border border-gray-200 rounded-xl p-6">
-          <div className="flex items-center space-x-3 mb-6">
-            <div className="flex items-center justify-center w-10 h-10 bg-purple-50 rounded-lg">
-              <Global size={20} color="#7C3AED" variant="Bold" />
+        {/* Name Preview Section */}
+        {(personalInfo.firstName || personalInfo.lastName) && (
+          <div className="bg-gradient-to-r from-emerald-50 to-cyan-50 border border-emerald-200 rounded-xl p-6">
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="flex items-center justify-center w-10 h-10 bg-emerald-100 rounded-lg">
+                <Profile2User size={20} color="#059669" variant="Bold" />
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900">Name Preview</h3>
+                <p className="text-sm text-gray-600">How your name will appear in the application</p>
+              </div>
             </div>
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900">DV Lottery Eligibility</h3>
-              <p className="text-sm text-gray-600">Country that makes you eligible for the program</p>
+
+            <div className="bg-white rounded-lg p-4 border border-emerald-200">
+              <div className="text-center">
+                <div className="text-lg font-semibold text-gray-900">
+                  {[personalInfo.lastName, personalInfo.firstName, personalInfo.middleName]
+                    .filter(Boolean)
+                    .join(', ')
+                  }
+                </div>
+                <p className="text-sm text-gray-500 mt-1">
+                  Format: Last Name, First Name, Middle Name
+                </p>
+              </div>
             </div>
           </div>
+        )}
+      </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Input
-              label="Country of Eligibility *"
-              placeholder="Usually same as birth country"
-              value={personalInfo.eligibilityCountry || ''}
-              onChange={(e) => handleInputChange('eligibilityCountry')(e.target.value)}
-              onBlur={(e) => validateField('eligibilityCountry', e.target.value, 'Country of eligibility')}
-            />
+      {/* Next Steps Preview */}
+      <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
+        <div className="flex items-start space-x-4">
+          <div className="flex items-center justify-center w-10 h-10 bg-blue-100 rounded-lg flex-shrink-0">
+            <InfoCircle size={20} color="#2563EB" variant="Bold" />
           </div>
-
-          {/* Eligibility explanation */}
-          <div className="mt-6 bg-blue-50 border border-blue-200 rounded-xl p-4">
-            <div className="flex items-start space-x-3">
-              <InfoCircle size={20} color="#3B82F6" variant="Bold" className="mt-0.5 flex-shrink-0" />
-              <div className="text-sm text-blue-800">
-                <p className="font-medium mb-2">About Country of Eligibility:</p>
-                <ul className="space-y-1 text-blue-700">
-                  <li>• Usually the same as your country of birth</li>
-                  <li>• Can be your spouse's country if your birth country is not eligible</li>
-                  <li>• Can be either parent's country if your birth country is not eligible</li>
-                  <li>• Must be a country eligible for the DV Lottery program</li>
-                </ul>
+          <div>
+            <h4 className="font-semibold text-blue-900 mb-2">What's Next?</h4>
+            <p className="text-blue-800 text-sm mb-3">
+              After completing your personal information, you'll proceed to:
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-blue-700">
+              <div className="flex items-center space-x-2">
+                <TickCircle size={14} color="#2563EB" variant="Bold" />
+                <span>Birth location details</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <TickCircle size={14} color="#2563EB" variant="Bold" />
+                <span>Country eligibility</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <TickCircle size={14} color="#2563EB" variant="Bold" />
+                <span>Photo upload</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <TickCircle size={14} color="#2563EB" variant="Bold" />
+                <span>Contact information</span>
               </div>
             </div>
           </div>
@@ -262,7 +297,7 @@ export const PersonalInfoStep: React.FC<FormStepProps> = ({ data }) => {
             <h3 className="text-lg font-semibold text-gray-900">Step Completion</h3>
             <p className="text-sm text-gray-600">
               {completionPercentage === 100 
-                ? 'All required fields completed! You can proceed to the next step.' 
+                ? 'Personal information completed! You can proceed to birth details.' 
                 : `${completedFields.length} of ${requiredFields.length} required fields completed.`
               }
             </p>
@@ -275,10 +310,7 @@ export const PersonalInfoStep: React.FC<FormStepProps> = ({ data }) => {
             { field: 'lastName', label: 'Last Name' },
             { field: 'firstName', label: 'First Name' },
             { field: 'gender', label: 'Gender' },
-            { field: 'dateOfBirth', label: 'Date of Birth' },
-            { field: 'cityOfBirth', label: 'City of Birth' },
-            { field: 'countryOfBirth', label: 'Country of Birth' },
-            { field: 'eligibilityCountry', label: 'Country of Eligibility' }
+            { field: 'dateOfBirth', label: 'Date of Birth' }
           ].map(({ field, label }) => {
             const isCompleted = !!personalInfo[field as keyof typeof personalInfo]
             return (
