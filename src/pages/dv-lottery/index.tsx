@@ -56,7 +56,7 @@ const formSteps: FormStep[] = [
     isCompleted: false,
     isValid: false,
     component: PersonalInfoStep,
-    icon: <Profile2User size={20} color="#6366F1" variant="Bold" />,
+    icon: <Profile2User size={20} color="white" variant="Bold" />,
     category: 'Identity',
     estimatedTime: 5,
     helpText: 'Enter your personal details exactly as they appear on your passport'
@@ -70,9 +70,9 @@ const formSteps: FormStep[] = [
     component: (props: any) => <PlaceholderStep {...props} stepInfo={{
       title: 'Birth Information',
       description: 'Enter the exact city and country where you were born as shown on your birth certificate.',
-      icon: <Location size={32} color="#059669" variant="Bold" />
+      icon: <Location size={32} color="white" variant="Bold" />
     }} />,
-    icon: <Location size={20} color="#059669" variant="Bold" />,
+    icon: <Location size={20} color="white" variant="Bold" />,
     category: 'Identity',
     estimatedTime: 3
   },
@@ -85,9 +85,9 @@ const formSteps: FormStep[] = [
     component: (props: any) => <PlaceholderStep {...props} stepInfo={{
       title: 'Country of Eligibility',
       description: 'Select the country that makes you eligible for the DV Lottery program.',
-      icon: <Global size={32} color="#DC2626" variant="Bold" />
+      icon: <Global size={32} color="white" variant="Bold" />
     }} />,
-    icon: <Global size={20} color="#DC2626" variant="Bold" />,
+    icon: <Global size={20} color="white" variant="Bold" />,
     category: 'Identity',
     estimatedTime: 2
   },
@@ -100,9 +100,9 @@ const formSteps: FormStep[] = [
     component: (props: any) => <PlaceholderStep {...props} stepInfo={{
       title: 'Applicant Photo',
       description: 'Upload a recent photo that meets official DV Lottery requirements: 600x600 pixels, white background.',
-      icon: <Camera size={32} color="#7C3AED" variant="Bold" />
+      icon: <Camera size={32} color="white" variant="Bold" />
     }} />,
-    icon: <Camera size={20} color="#7C3AED" variant="Bold" />,
+    icon: <Camera size={20} color="white" variant="Bold" />,
     category: 'Documents',
     estimatedTime: 10
   },
@@ -115,9 +115,9 @@ const formSteps: FormStep[] = [
     component: (props: any) => <PlaceholderStep {...props} stepInfo={{
       title: 'Mailing Address',
       description: 'Provide your complete current mailing address where you can receive correspondence.',
-      icon: <Home2 size={32} color="#0891B2" variant="Bold" />
+      icon: <Home2 size={32} color="white" variant="Bold" />
     }} />,
-    icon: <Home2 size={20} color="#0891B2" variant="Bold" />,
+    icon: <Home2 size={20} color="white" variant="Bold" />,
     category: 'Contact',
     estimatedTime: 4
   },
@@ -130,9 +130,9 @@ const formSteps: FormStep[] = [
     component: (props: any) => <PlaceholderStep {...props} stepInfo={{
       title: 'Contact Information',
       description: 'Add your phone number and email address for important communications.',
-      icon: <Call size={32} color="#EA580C" variant="Bold" />
+      icon: <Call size={32} color="white" variant="Bold" />
     }} />,
-    icon: <Call size={20} color="#EA580C" variant="Bold" />,
+    icon: <Call size={20} color="white" variant="Bold" />,
     category: 'Contact',
     estimatedTime: 3
   },
@@ -145,9 +145,9 @@ const formSteps: FormStep[] = [
     component: (props: any) => <PlaceholderStep {...props} stepInfo={{
       title: 'Current Residence',
       description: 'Specify the country where you currently reside, which may differ from your birth country.',
-      icon: <Location size={32} color="#16A34A" variant="Bold" />
+      icon: <Location size={32} color="white" variant="Bold" />
     }} />,
-    icon: <Location size={20} color="#16A34A" variant="Bold" />,
+    icon: <Location size={20} color="white" variant="Bold" />,
     category: 'Contact',
     estimatedTime: 2
   },
@@ -160,9 +160,9 @@ const formSteps: FormStep[] = [
     component: (props: any) => <PlaceholderStep {...props} stepInfo={{
       title: 'Education Background',
       description: 'Select your highest completed level of education. Minimum requirement is high school degree.',
-      icon: <Book1 size={32} color="#9333EA" variant="Bold" />
+      icon: <Book1 size={32} color="white" variant="Bold" />
     }} />,
-    icon: <Book1 size={20} color="#9333EA" variant="Bold" />,
+    icon: <Book1 size={20} color="white" variant="Bold" />,
     category: 'Qualifications',
     estimatedTime: 3
   },
@@ -175,9 +175,9 @@ const formSteps: FormStep[] = [
     component: (props: any) => <PlaceholderStep {...props} stepInfo={{
       title: 'Marital Status',
       description: 'Select your current marital status as of the application date.',
-      icon: <Heart size={32} color="#EC4899" variant="Bold" />
+      icon: <Heart size={32} color="white" variant="Bold" />
     }} />,
-    icon: <Heart size={20} color="#EC4899" variant="Bold" />,
+    icon: <Heart size={20} color="white" variant="Bold" />,
     category: 'Family',
     estimatedTime: 2
   },
@@ -190,9 +190,9 @@ const formSteps: FormStep[] = [
     component: (props: any) => <PlaceholderStep {...props} stepInfo={{
       title: 'Spouse Information',
       description: 'If married, provide complete information about your spouse including personal details.',
-      icon: <ProfileAdd size={32} color="#DB2777" variant="Bold" />
+      icon: <ProfileAdd size={32} color="white" variant="Bold" />
     }} />,
-    icon: <ProfileAdd size={20} color="#DB2777" variant="Bold" />,
+    icon: <ProfileAdd size={20} color="white" variant="Bold" />,
     category: 'Family',
     estimatedTime: 5
   },
@@ -205,9 +205,9 @@ const formSteps: FormStep[] = [
     component: (props: any) => <PlaceholderStep {...props} stepInfo={{
       title: 'Spouse Photo',
       description: 'Upload a photo of your spouse that meets the same requirements as your photo.',
-      icon: <Gallery size={32} color="#BE185D" variant="Bold" />
+      icon: <Gallery size={32} color="white" variant="Bold" />
     }} />,
-    icon: <Gallery size={20} color="#BE185D" variant="Bold" />,
+    icon: <Gallery size={20} color="white" variant="Bold" />,
     category: 'Family',
     estimatedTime: 8
   },
@@ -220,9 +220,9 @@ const formSteps: FormStep[] = [
     component: (props: any) => <PlaceholderStep {...props} stepInfo={{
       title: 'Number of Children',
       description: 'Enter the total number of your unmarried children under 21 years old.',
-      icon: <People size={32} color="#0369A1" variant="Bold" />
+      icon: <People size={32} color="white" variant="Bold" />
     }} />,
-    icon: <People size={20} color="#0369A1" variant="Bold" />,
+    icon: <People size={20} color="white" variant="Bold" />,
     category: 'Family',
     estimatedTime: 2
   },
@@ -235,9 +235,9 @@ const formSteps: FormStep[] = [
     component: (props: any) => <PlaceholderStep {...props} stepInfo={{
       title: 'Children Information',
       description: 'Provide detailed information and photos for each of your children under 21.',
-      icon: <User size={32} color="#0284C7" variant="Bold" />
+      icon: <User size={32} color="white" variant="Bold" />
     }} />,
-    icon: <User size={20} color="#0284C7" variant="Bold" />,
+    icon: <User size={20} color="white" variant="Bold" />,
     category: 'Family',
     estimatedTime: 15
   },
@@ -250,9 +250,9 @@ const formSteps: FormStep[] = [
     component: (props: any) => <PlaceholderStep {...props} stepInfo={{
       title: 'Review & Submit',
       description: 'Review all your information carefully before final submission to ensure accuracy.',
-      icon: <TickCircle size={32} color="#16A34A" variant="Bold" />
+      icon: <TickCircle size={32} color="white" variant="Bold" />
     }} />,
-    icon: <TickCircle size={20} color="#16A34A" variant="Bold" />,
+    icon: <TickCircle size={20} color="white" variant="Bold" />,
     category: 'Submission',
     estimatedTime: 10
   }
