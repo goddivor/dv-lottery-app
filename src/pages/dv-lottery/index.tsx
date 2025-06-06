@@ -22,6 +22,7 @@ import {
   DocumentText1,
   TickCircle,
 } from "iconsax-react";
+import { EligibilityStep } from "@/components/forms/steps/EligibilityStep";
 
 // Enhanced step component placeholder with modern design
 const PlaceholderStep: React.FC<any> = ({ data, stepInfo }) => (
@@ -87,17 +88,7 @@ const formSteps: FormStep[] = [
     description: "Country of eligibility for DV program",
     isCompleted: false,
     isValid: false,
-    component: (props: any) => (
-      <PlaceholderStep
-        {...props}
-        stepInfo={{
-          title: "Country of Eligibility",
-          description:
-            "Select the country that makes you eligible for the DV Lottery program.",
-          icon: <Global size={32} color="white" variant="Bold" />,
-        }}
-      />
-    ),
+    component: EligibilityStep,
     icon: <Global size={20} color="white" variant="Bold" />,
     category: "Identity",
     estimatedTime: 2,
