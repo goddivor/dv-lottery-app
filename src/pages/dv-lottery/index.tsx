@@ -23,6 +23,7 @@ import {
   TickCircle,
 } from "iconsax-react";
 import { EligibilityStep } from "@/components/forms/steps/EligibilityStep";
+import { PhotoUploadStep } from "@/components/forms/steps/PhotoUploadStep";
 
 // Enhanced step component placeholder with modern design
 const PlaceholderStep: React.FC<any> = ({ data, stepInfo }) => (
@@ -99,17 +100,7 @@ const formSteps: FormStep[] = [
     description: "Upload your official photo (600x600px)",
     isCompleted: false,
     isValid: false,
-    component: (props: any) => (
-      <PlaceholderStep
-        {...props}
-        stepInfo={{
-          title: "Applicant Photo",
-          description:
-            "Upload a recent photo that meets official DV Lottery requirements: 600x600 pixels, white background.",
-          icon: <Camera size={32} color="white" variant="Bold" />,
-        }}
-      />
-    ),
+    component: PhotoUploadStep,
     icon: <Camera size={20} color="white" variant="Bold" />,
     category: "Documents",
     estimatedTime: 10,
