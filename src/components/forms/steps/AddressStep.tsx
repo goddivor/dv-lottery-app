@@ -16,8 +16,6 @@ import {
   Warning2,
   Global,
   Map1,
-  Sms,
-  Profile2User,
 } from "iconsax-react";
 
 // Mock countries data - in real app, this would come from an API
@@ -130,50 +128,6 @@ export const AddressStep: React.FC<FormStepProps> = ({ data }) => {
     return true;
   };
 
-  const validateEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!email.trim()) {
-      setValidationErrors("addressInfo.email", [
-        {
-          field: "email",
-          message: "Email address is required",
-          type: "required",
-        },
-      ]);
-      return false;
-    }
-    if (!emailRegex.test(email)) {
-      setValidationErrors("addressInfo.email", [
-        {
-          field: "email",
-          message: "Please enter a valid email address",
-          type: "format",
-        },
-      ]);
-      return false;
-    }
-    clearValidationErrors("addressInfo.email");
-    return true;
-  };
-
-  const validatePhoneNumber = (phone: string) => {
-    if (phone && phone.trim()) {
-      const phoneRegex = /^[\+]?[\d\s\-\(\)]+$/;
-      if (!phoneRegex.test(phone)) {
-        setValidationErrors("addressInfo.phoneNumber", [
-          {
-            field: "phoneNumber",
-            message: "Please enter a valid phone number",
-            type: "format",
-          },
-        ]);
-        return false;
-      }
-    }
-    clearValidationErrors("addressInfo.phoneNumber");
-    return true;
-  };
-
   // Calculate completion percentage
   const requiredFields = [
     "addressLine1",
@@ -181,7 +135,6 @@ export const AddressStep: React.FC<FormStepProps> = ({ data }) => {
     "stateProvince",
     "postalCode",
     "country",
-    "email",
   ];
   const completedFields = requiredFields.filter(
     (field) => addressInfo[field as keyof typeof addressInfo]
@@ -422,58 +375,6 @@ export const AddressStep: React.FC<FormStepProps> = ({ data }) => {
           </div>
         </div>
 
-        {/* Contact Information Section */}
-        <div className="bg-white border border-gray-200 rounded-xl p-6">
-          <div className="flex items-center space-x-3 mb-6">
-            <div className="flex items-center justify-center w-10 h-10 bg-blue-50 rounded-lg">
-              <Sms size={20} color="#3B82F6" variant="Bold" />
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900">
-                Contact Information
-              </h3>
-              <p className="text-sm text-gray-600">
-                Phone and email for important communications
-              </p>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <Input
-                label="Email Address *"
-                type="email"
-                placeholder="your.email@example.com"
-                value={addressInfo.email || ""}
-                onChange={(e) => handleInputChange("email")(e.target.value)}
-                onBlur={(e) => validateEmail(e.target.value)}
-              />
-              <p className="text-xs text-gray-500 mt-1 flex items-center space-x-1">
-                <InfoCircle size={12} color="#6B7280" variant="Outline" />
-                <span>
-                  You must have access to this email for the next 2+ years
-                </span>
-              </p>
-            </div>
-
-            <div>
-              <Input
-                label="Phone Number (Optional)"
-                placeholder="+1 555-123-4567"
-                value={addressInfo.phoneNumber || ""}
-                onChange={(e) =>
-                  handleInputChange("phoneNumber")(e.target.value)
-                }
-                onBlur={(e) => validatePhoneNumber(e.target.value)}
-              />
-              <p className="text-xs text-gray-500 mt-1 flex items-center space-x-1">
-                <InfoCircle size={12} color="#6B7280" variant="Outline" />
-                <span>Include country code for international numbers</span>
-              </p>
-            </div>
-          </div>
-        </div>
-
         {/* Address Preview */}
         {(addressInfo.addressLine1 ||
           addressInfo.city ||
@@ -524,16 +425,6 @@ export const AddressStep: React.FC<FormStepProps> = ({ data }) => {
                     {addressInfo.country}
                   </div>
                 )}
-                {addressInfo.email && (
-                  <div className="text-blue-600 mt-2">
-                    📧 {addressInfo.email}
-                  </div>
-                )}
-                {addressInfo.phoneNumber && (
-                  <div className="text-green-600">
-                    📞 {addressInfo.phoneNumber}
-                  </div>
-                )}
               </div>
             </div>
           </div>
@@ -574,29 +465,6 @@ export const AddressStep: React.FC<FormStepProps> = ({ data }) => {
             </div>
           </div>
         </div>
-
-        {/* Address Security Notice */}
-        <div className="bg-purple-50 border border-purple-200 rounded-xl p-6">
-          <div className="flex items-start space-x-4">
-            <div className="flex items-center justify-center w-10 h-10 bg-purple-100 rounded-lg flex-shrink-0">
-              <Profile2User size={20} color="#7C3AED" variant="Bold" />
-            </div>
-            <div>
-              <h4 className="font-semibold text-purple-900 mb-2">
-                Privacy & Security
-              </h4>
-              <div className="space-y-2 text-purple-800 text-sm">
-                <p>Your address information is:</p>
-                <ul className="space-y-1 ml-4">
-                  <li>• Encrypted and stored securely</li>
-                  <li>• Used only for official DV Lottery correspondence</li>
-                  <li>• Never shared with third parties</li>
-                  <li>• Required by U.S. immigration authorities</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* Validation Summary */}
@@ -633,7 +501,6 @@ export const AddressStep: React.FC<FormStepProps> = ({ data }) => {
             { field: "stateProvince", label: "State/Province" },
             { field: "postalCode", label: "Postal Code" },
             { field: "country", label: "Country" },
-            { field: "email", label: "Email Address" },
           ].map(({ field, label }) => {
             const isCompleted =
               !!addressInfo[field as keyof typeof addressInfo];

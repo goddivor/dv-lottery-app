@@ -25,6 +25,7 @@ import {
 import { EligibilityStep } from "@/components/forms/steps/EligibilityStep";
 import { PhotoUploadStep } from "@/components/forms/steps/PhotoUploadStep";
 import { AddressStep } from "@/components/forms/steps/AddressStep";
+import { ContactInfoStep } from "@/components/forms/steps/ContactInfoStep";
 
 // Enhanced step component placeholder with modern design
 const PlaceholderStep: React.FC<any> = ({ data, stepInfo }) => (
@@ -123,17 +124,7 @@ const formSteps: FormStep[] = [
     description: "Phone number and email address",
     isCompleted: false,
     isValid: false,
-    component: (props: any) => (
-      <PlaceholderStep
-        {...props}
-        stepInfo={{
-          title: "Contact Information",
-          description:
-            "Add your phone number and email address for important communications.",
-          icon: <Call size={32} color="white" variant="Bold" />,
-        }}
-      />
-    ),
+    component: ContactInfoStep,
     icon: <Call size={20} color="white" variant="Bold" />,
     category: "Contact",
     estimatedTime: 3,
