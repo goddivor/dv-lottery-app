@@ -24,6 +24,7 @@ import {
 } from "iconsax-react";
 import { EligibilityStep } from "@/components/forms/steps/EligibilityStep";
 import { PhotoUploadStep } from "@/components/forms/steps/PhotoUploadStep";
+import { AddressStep } from "@/components/forms/steps/AddressStep";
 
 // Enhanced step component placeholder with modern design
 const PlaceholderStep: React.FC<any> = ({ data, stepInfo }) => (
@@ -111,17 +112,7 @@ const formSteps: FormStep[] = [
     description: "Your current mailing address",
     isCompleted: false,
     isValid: false,
-    component: (props: any) => (
-      <PlaceholderStep
-        {...props}
-        stepInfo={{
-          title: "Mailing Address",
-          description:
-            "Provide your complete current mailing address where you can receive correspondence.",
-          icon: <Home2 size={32} color="white" variant="Bold" />,
-        }}
-      />
-    ),
+    component: AddressStep,
     icon: <Home2 size={20} color="white" variant="Bold" />,
     category: "Contact",
     estimatedTime: 4,
