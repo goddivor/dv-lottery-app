@@ -5,6 +5,7 @@ import RootLayout from "@/app.layout";
 import { DVLotteryPage } from "./dv-lottery";
 import LoginPage from "./login";
 import LandingPage from "./landing";
+import { SimpleDVLotteryPage } from "./dv-lottery/simple";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       },
       {
         path: "dv-lottery",
+        element: <SimpleDVLotteryPage />, // ✅ Nouvelle route pour la page DV Lottery
+      },
+      {
+        path: "dv-lottery/complex",
         element: <DVLotteryPage />, // ✅ Nouvelle route
       },
     ],
